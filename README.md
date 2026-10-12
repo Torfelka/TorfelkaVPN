@@ -24,12 +24,13 @@
 
 Скопируй ссылку-подписку, вставь её в клиент — и всё готово.
 
-```text
-https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/main/TorfelkaVPN
-<div align="center">
-👆 Скопируй эту ссылку и вставь в клиент как подписку
+Ссылка-подписка:
 
-</div>
+    https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/main/TorfelkaVPN
+
+<div align="center">
+
+**👆 Скопируй эту ссылку и вставь в клиент как подписку**
 
 </div>
 
@@ -49,9 +50,9 @@ https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/main/TorfelkaVPN
 
 ### Шаг 2. Скопируй ссылку-подписку
 
-```text
-https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/main/TorfelkaVPN
-```
+Ссылка-подписка:
+
+    https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/main/TorfelkaVPN
 
 ### Шаг 3. Вставь в клиент
 
@@ -141,4 +142,3 @@ https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/main/TorfelkaVPN
 © 2026 Torfelka VPN
 
 </div>
-```
