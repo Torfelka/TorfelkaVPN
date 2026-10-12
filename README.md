@@ -10,7 +10,7 @@
 
 <br>
 
-[![Telegram](https://img.shields.io/badge/Telegram-@Torfelka-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/Torfelka)
+[![Telegram](https://img.shields.io/badge/Telegram-@TorfelkaVPN-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/Torfelka)
 [![Сайт](https://img.shields.io/badge/Сайт-torfelka.github.io-7C5CFF?style=for-the-badge&logo=githubpages&logoColor=white)](https://torfelka.github.io/TorfelkaVPN/)
 [![Free](https://img.shields.io/badge/Лицензия-Free-4CAF50?style=for-the-badge)]()
 
