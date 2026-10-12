@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Torfelka VPN — VPN, который не подводит</title>
+<meta name="description" content="Torfelka VPN — бесплатный VPN без блокировок, рекламы и логов. Скопируй ссылку — вставь в клиент — работает.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+/* ============ BASE ============ */
+:root{
+  --bg:#0a0a0f;
+  --bg-soft:#101017;
+  --card:#14141d;
+  --card-2:#181822;
+  --accent:#7c5cff;
+  --accent-light:#a78bfa;
+  --text:#f4f4f7;
+  --muted:#93939f;
+  --border:rgba(255,255,255,.07);
+  --radius:22px;
+  --container:1140px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Мягкие свечения на фоне */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(650px 480px at 12% -6%, rgba(124,92,255,.22), transparent 65%),
+    radial-gradient(600px 420px at 92% 8%, rgba(124,92,255,.13), transparent 65%),
+    radial-gradient(700px 500px at 50% 108%, rgba(124,92,255,.10), transparent 70%);
+}
+
+img{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin:0 auto;
+  padding:0 24px;
+  position:relative;
+  z-index:1;
+}
+
+/* ============ HEADER ============ */
+.header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  background:rgba(10,10,15,.72);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s ease, background .3s ease;
+}
+.header.scrolled{border-bottom-color:var(--border);}
+
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:72px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-weight:800;
+  font-size:18px;
+  letter-spacing:-.4px;
+}
+
+.logo-mark{
+  width:34px;
+  height:34px;
+  border-radius:11px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-light));
+  display:grid;
+  place-items:center;
+  font-size:15px;
+  color:#fff;
+  box-shadow:0 6px 20px rgba(124,92,255,.45);
+  flex-shrink:0;
+}
+
+.logo span.accent{
+  background:linear-gradient(135deg,var(--accent),var(--accent-light));
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.header-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+  font-weight:600;
+  color:var(--muted);
+  padding:9px 16px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  transition:.25s ease;
+}
+.header-link:hover{
+  color:#fff;
+  border-color:rgba(124,92,255,.55);
+  background:rgba(124,92,255,.10);
+  transform:translateY(-1px);
+}
+
+/* ============ HERO ============ */
+.hero{
+  padding:96px 0 110px;
+  text-align:center;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  font-size:13px;
+  font-weight:600;
+  color:#c9c4ff;
+  background:rgba(124,92,255,.12);
+  border:1px solid rgba(124,92,255,.30);
+  padding:8px 18px;
+  border-radius:999px;
+  margin-bottom:30px;
+}
+.badge i{font-size:11px;color:var(--accent-light);}
+
+.hero h1{
+  font-size:clamp(38px,7.2vw,76px);
+  line-height:1.04;
+  font-weight:800;
+  letter-spacing:-2.5px;
+  margin-bottom:26px;
+}
+
+.hero h1 .grad{
+  background:linear-gradient(120deg,#7c5cff 0%,#a78bfa 45%,#c4b5fd 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p.sub{
+  font-size:clamp(16px,2vw,20px);
+  color:var(--muted);
+  max-width:620px;
+  margin:0 auto 42px;
+  font-weight:500;
+}
+
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  justify-content:center;
+  align-items:center;
+}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:11px;
+  font-family:inherit;
+  font-size:16px;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+  border-radius:16px;
+  padding:18px 34px;
+  transition:transform .25s cubic-bezier(.2,.8,.3,1), box-shadow .25s ease, background .25s ease, border-color .25s ease, color .25s ease;
+  white-space:nowrap;
+}
+
+.btn-primary{
+  color:#fff;
+  background:linear-gradient(135deg,#7c5cff 0%,#9b7bff 100%);
+  box-shadow:0 12px 34px rgba(124,92,255,.38);
+}
+.btn-primary:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 44px rgba(124,92,255,.55);
+}
+.btn-primary:active{transform:translateY(-1px) scale(.99);}
+
+.btn-ghost{
+  color:var(--text);
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--border);
+}
+.btn-ghost:hover{
+  transform:translateY(-3px);
+  background:rgba(124,92,255,.12);
+  border-color:rgba(124,92,255,.5);
+}
+
+.btn i{font-size:15px;}
+
+/* Плашка со ссылкой подписки */
+.sub-link{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin-top:28px;
+  padding:11px 20px;
+  border-radius:999px;
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  font-size:12.5px;
+  font-family:'SFMono-Regular',Consolas,monospace;
+  color:var(--muted);
+  max-width:100%;
+  overflow:hidden;
+}
+.sub-link i{color:var(--accent-light);font-size:12px;flex-shrink:0;}
+.sub-link span{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+/* Статистика */
+.stats{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+  margin-top:56px;
+}
+.stat{
+  background:rgba(255,255,255,.028);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px 30px;
+  min-width:140px;
+  transition:.3s ease;
+}
+.stat:hover{
+  border-color:rgba(124,92,255,.4);
+  transform:translateY(-3px);
+}
+.stat b{
+  display:block;
+  font-size:26px;
+  font-weight:800;
+  letter-spacing:-1px;
+  background:linear-gradient(135deg,#a78bfa,#7c5cff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.stat small{
+  font-size:12.5px;
+  color:var(--muted);
+  font-weight:600;
+  letter-spacing:.2px;
+}
+
+/* ============ SECTIONS ============ */
+section{padding:88px 0;}
+
+.section-head{
+  text-align:center;
+  max-width:660px;
+  margin:0 auto 60px;
+}
+
+.section-tag{
+  display:inline-block;
+  font-size:12.5px;
+  font-weight:700;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  color:var(--accent-light);
+  margin-bottom:16px;
+}
+
+.section-head h2{
+  font-size:clamp(28px,4.6vw,46px);
+  font-weight:800;
+  letter-spacing:-1.6px;
+  line-height:1.12;
+  margin-bottom:16px;
+}
+
+.section-head p{
+  color:var(--muted);
+  font-size:16.5px;
+  font-weight:500;
+}
+
+/* ============ GRIDS ============ */
+.grid{
+  display:grid;
+  gap:22px;
+}
+.grid-4{grid-template-columns:repeat(4,1fr);}
+.grid-5{grid-template-columns:repeat(5,1fr);}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+
+/* ============ CARD ============ */
+.card{
+  position:relative;
+  background:linear-gradient(165deg,#16161f 0%,#101017 100%);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:32px 28px;
+  transition:transform .35s cubic-bezier(.2,.8,.3,1), border-color .35s ease, box-shadow .35s ease;
+  overflow:hidden;
+}
+.card::after{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(124,92,255,.65),transparent);
+  opacity:0;
+  transition:opacity .35s ease;
+}
+.card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(124,92,255,.42);
+  box-shadow:0 22px 50px rgba(0,0,0,.5), 0 0 0 1px rgba(124,92,255,.10);
+}
+.card:hover::after{opacity:1;}
+
+.card-icon{
+  width:52px;
+  height:52px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  font-size:20px;
+  color:var(--accent-light);
+  background:rgba(124,92,255,.13);
+  border:1px solid rgba(124,92,255,.22);
+  margin-bottom:22px;
+  transition:.35s ease;
+}
+.card:hover .card-icon{
+  background:linear-gradient(135deg,var(--accent),var(--accent-light));
+  color:#fff;
+  border-color:transparent;
+  transform:scale(1.06) rotate(-4deg);
+}
+
+.card h3{
+  font-size:18.5px;
+  font-weight:700;
+  letter-spacing:-.4px;
+  margin-bottom:10px;
+}
+.card p{
+  font-size:14.5px;
+  color:var(--muted);
+  font-weight:500;
+  line-height:1.65;
+}
+
+/* ============ STEPS ============ */
+.step{
+  display:grid;
+  grid-template-columns:64px 1fr;
+  gap:26px;
+  padding:36px 34px;
+  background:linear-gradient(165deg,#16161f 0%,#101017 100%);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  margin-bottom:20px;
+  transition:border-color .35s ease, box-shadow .35s ease;
+}
+.step:hover{
+  border-color:rgba(124,92,255,.35);
+  box-shadow:0 18px 44px rgba(0,0,0,.42);
+}
+
+.step-num{
+  width:64px;
+  height:64px;
+  border-radius:19px;
+  display:grid;
+  place-items:center;
+  font-size:24px;
+  font-weight:800;
+  color:#fff;
+  background:linear-gradient(135deg,#7c5cff,#a78bfa);
+  box-shadow:0 10px 28px rgba(124,92,255,.4);
+  flex-shrink:0;
+}
+
+.step-body h3{
+  font-size:21px;
+  font-weight:800;
+  letter-spacing:-.6px;
+  margin-bottom:8px;
+}
+.step-body > p{
+  color:var(--muted);
+  font-size:15px;
+  font-weight:500;
+  margin-bottom:20px;
+}
+
+.dl-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.dl-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:13px 22px;
+  border-radius:14px;
+  font-size:14.5px;
+  font-weight:700;
+  color:var(--text);
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--border);
+  transition:.28s ease;
+}
+.dl-btn i{color:var(--accent-light);font-size:15px;transition:.28s ease;}
+.dl-btn:hover{
+  transform:translateY(-3px);
+  background:rgba(124,92,255,.14);
+  border-color:rgba(124,92,255,.55);
+  box-shadow:0 12px 28px rgba(124,92,255,.22);
+}
+.dl-btn:hover i{color:#fff;}
+
+/* Мини-кнопка копирования в шаге 2 */
+.copy-row{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:14px;
+}
+.copy-row .btn{padding:15px 28px;font-size:15px;}
+
+.mini-link{
+  font-family:'SFMono-Regular',Consolas,monospace;
+  font-size:12.5px;
+  color:var(--muted);
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border);
+  padding:11px 18px;
+  border-radius:12px;
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  flex:1 1 260px;
+}
+
+.hint{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  margin-top:18px;
+  font-size:13.5px;
+  font-weight:600;
+  color:var(--accent-light);
+  background:rgba(124,92,255,.10);
+  border:1px solid rgba(124,92,255,.22);
+  padding:9px 16px;
+  border-radius:999px;
+}
+
+/* ============ PLATFORMS ============ */
+.platform{
+  text-align:center;
+  padding:34px 20px;
+}
+.platform .card-icon{
+  margin:0 auto 20px;
+  width:58px;
+  height:58px;
+  font-size:24px;
+}
+.platform h3{font-size:16.5px;}
+.platform p{font-size:13.5px;}
+
+/* ============ CTA / TELEGRAM ============ */
+.cta{
+  position:relative;
+  text-align:center;
+  padding:68px 34px;
+  border-radius:30px;
+  background:linear-gradient(150deg,rgba(124,92,255,.16) 0%,rgba(20,20,29,.85) 55%);
+  border:1px solid rgba(124,92,255,.28);
+  overflow:hidden;
+}
+.cta::before{
+  content:'';
+  position:absolute;
+  width:420px;height:420px;
+  top:-220px;left:50%;
+  transform:translateX(-50%);
+  background:radial-gradient(circle,rgba(124,92,255,.35),transparent 68%);
+  pointer-events:none;
+}
+.cta > *{position:relative;}
+
+.cta-icon{
+  width:74px;height:74px;
+  margin:0 auto 26px;
+  border-radius:23px;
+  display:grid;
+  place-items:center;
+  font-size:32px;
+  color:#fff;
+  background:linear-gradient(135deg,#7c5cff,#a78bfa);
+  box-shadow:0 16px 42px rgba(124,92,255,.5);
+}
+
+.cta h2{
+  font-size:clamp(26px,4.4vw,42px);
+  font-weight:800;
+  letter-spacing:-1.4px;
+  margin-bottom:16px;
+}
+
+.cta p{
+  color:#b9b4d6;
+  font-size:16.5px;
+  font-weight:500;
+  max-width:520px;
+  margin:0 auto 34px;
+}
+
+/* ============ FOOTER ============ */
+.footer{
+  border-top:1px solid var(--border);
+  padding:38px 0;
+  margin-top:40px;
+}
+.footer-inner{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  align-items:center;
+  justify-content:space-between;
+  font-size:14px;
+  color:var(--muted);
+  font-weight:500;
+}
+.footer a{
+  color:var(--muted);
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  transition:color .25s ease;
+}
+.footer a:hover{color:var(--accent-light);}
+
+/* ============ TOAST ============ */
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:36px;
+  transform:translate(-50%,140%);
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:15px 30px;
+  border-radius:999px;
+  font-size:15px;
+  font-weight:700;
+  color:#fff;
+  background:linear-gradient(135deg,#7c5cff,#a78bfa);
+  box-shadow:0 16px 46px rgba(124,92,255,.55);
+  opacity:0;
+  pointer-events:none;
+  z-index:200;
+  transition:transform .42s cubic-bezier(.2,.9,.3,1), opacity .35s ease;
+}
+.toast.show{
+  transform:translate(-50%,0);
+  opacity:1;
+}
+
+/* ============ REVEAL ============ */
+.reveal{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity .8s cubic-bezier(.2,.8,.3,1), transform .8s cubic-bezier(.2,.8,.3,1);
+  will-change:opacity, transform;
+}
+.reveal.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ============ АДАПТИВ ============ */
+@media (max-width:1024px){
+  .grid-4{grid-template-columns:repeat(2,1fr);}
+  .grid-5{grid-template-columns:repeat(3,1fr);}
+  .grid-3{grid-template-columns:repeat(2,1fr);}
+}
+
+@media (max-width:720px){
+  .hero{padding:64px 0 76px;}
+  section{padding:64px 0;}
+  .header-inner{height:64px;}
+  .logo{font-size:16px;}
+  .logo-mark{width:30px;height:30px;font-size:13px;border-radius:10px;}
+
+  .grid-4,
+  .grid-5,
+  .grid-3{grid-template-columns:1fr;}
+
+  .hero h1{letter-spacing:-1.4px;}
+  .hero-actions{flex-direction:column;width:100%;}
+  .hero-actions .btn{width:100%;}
+
+  .stats{gap:10px;}
+  .stat{flex:1 1 130px;padding:15px 18px;min-width:0;}
+  .stat b{font-size:22px;}
+
+  .card{padding:26px 22px;}
+  .step{
+    grid-template-columns:1fr;
+    gap:18px;
+    padding:28px 22px;
+  }
+  .step-num{width:52px;height:52px;border-radius:16px;font-size:20px;}
+
+  .dl-btn{flex:1 1 100%;justify-content:center;}
+  .copy-row .btn{width:100%;}
+  .mini-link{flex:1 1 100%;}
+
+  .cta{padding:48px 22px;border-radius:24px;}
+  .cta-icon{width:62px;height:62px;font-size:26px;border-radius:19px;}
+
+  .footer-inner{justify-content:center;text-align:center;}
+
+  .toast{
+    bottom:22px;
+    width:calc(100% - 32px);
+    justify-content:center;
+    padding:14px 22px;
+    font-size:14px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;}
+  .reveal{opacity:1;transform:none;}
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark"><i class="fa-solid fa-shield-halved"></i></span>
+      Torfelka <span class="accent">VPN</span>
+    </a>
+    <a class="header-link" href="https://t.me/Torfelka" target="_blank" rel="noopener">
+      <i class="fa-brands fa-telegram"></i> Наш канал
+    </a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="container">
+
+    <div class="badge reveal">
+      <i class="fa-solid fa-bolt"></i> Бесплатно • Без рекламы • Без логов
+    </div>
+
+    <h1 class="reveal" style="transition-delay:.08s">
+      VPN, который <span class="grad">не подводит</span>
+    </h1>
+
+    <p class="sub reveal" style="transition-delay:.16s">
+      Без блокировок, без рекламы, без логов. Полностью бесплатно.
+    </p>
+
+    <div class="hero-actions reveal" style="transition-delay:.24s">
+      <button class="btn btn-primary js-copy">
+        <i class="fa-regular fa-copy"></i> Скопировать ссылку-подписку
+      </button>
+      <a href="#how" class="btn btn-ghost">
+        <i class="fa-solid fa-circle-play"></i> Как подключиться
+      </a>
+    </div>
+
+    <div class="sub-link reveal" style="transition-delay:.32s">
+      <i class="fa-solid fa-link"></i>
+      <span id="subUrl">https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/refs/heads/main/TorfelkaVPN</span>
+    </div>
+
+    <div class="stats reveal" style="transition-delay:.4s">
+      <div class="stat"><b>19</b><small>серверов</small></div>
+      <div class="stat"><b>5</b><small>платформ</small></div>
+      <div class="stat"><b>0 ₽</b><small>навсегда</small></div>
+      <div class="stat"><b>24/7</b><small>работает</small></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ЧТО ДАЁТ VPN ================= -->
+<section id="features">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="section-tag">Возможности</span>
+      <h2>Что даёт VPN</h2>
+      <p>Всё, что нужно для свободного интернета — и ничего лишнего.</p>
+    </div>
+
+    <div class="grid grid-4">
+
+      <div class="card reveal">
+        <div class="card-icon"><i class="fa-solid fa-unlock-keyhole"></i></div>
+        <h3>Обход блокировок</h3>
+        <p>Доступ к любым сайтам и сервисам, включая заблокированные в РФ.</p>
+      </div>
+
+      <div class="card reveal" style="transition-delay:.08s">
+        <div class="card-icon"><i class="fa-solid fa-gauge-high"></i></div>
+        <h3>Автовыбор сервера</h3>
+        <p>Клиент сам выбирает самый быстрый сервер по пингу.</p>
+      </div>
+
+      <div class="card reveal" style="transition-delay:.16s">
+        <div class="card-icon"><i class="fa-solid fa-eye-slash"></i></div>
+        <h3>Без логов</h3>
+        <p>Мы не храним историю ваших подключений.</p>
+      </div>
+
+      <div class="card reveal" style="transition-delay:.24s">
+        <div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
+        <h3>Мультиплатформа</h3>
+        <p>Работает на Android, iOS, Windows, macOS, Linux.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= КАК ПОДКЛЮЧИТЬСЯ ================= -->
+<section id="how">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="section-tag">Инструкция</span>
+      <h2>Как подключиться</h2>
+      <p>Три простых шага — и через минуту всё работает.</p>
+    </div>
+
+    <!-- ШАГ 1 -->
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Скачайте клиент</h3>
+        <p>Выберите приложение для своего устройства — любое из двух подойдёт.</p>
+
+        <div class="dl-grid">
+          <a class="dl-btn" href="https://github.com/INCY-DEV/incy-platforms" target="_blank" rel="noopener">
+            <i class="fa-solid fa-desktop"></i> Incy для ПК
+          </a>
+          <a class="dl-btn" href="https://play.google.com/store/apps/details?id=llc.itdev.incy&hl=ru" target="_blank" rel="noopener">
+            <i class="fa-brands fa-android"></i> Incy для Android
+          </a>
+          <a class="dl-btn" href="https://github.com/Happ-proxy/happ-desktop/releases/latest" target="_blank" rel="noopener">
+            <i class="fa-solid fa-desktop"></i> Happ для ПК
+          </a>
+          <a class="dl-btn" href="https://play.google.com/store/apps/details?id=com.happproxy&hl=ru" target="_blank" rel="noopener">
+            <i class="fa-brands fa-android"></i> Happ для Android
+          </a>
+          <a class="dl-btn" href="https://apps.apple.com/app/happ-proxy-utility/id6504287215" target="_blank" rel="noopener">
+            <i class="fa-brands fa-apple"></i> Happ для iOS
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ШАГ 2 -->
+    <div class="step reveal" style="transition-delay:.08s">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Скопируйте ссылку-подписку</h3>
+        <p>Одна кнопка — ссылка уже в буфере обмена.</p>
+
+        <div class="copy-row">
+          <button class="btn btn-primary js-copy">
+            <i class="fa-regular fa-copy"></i> Скопировать ссылку
+          </button>
+          <div class="mini-link">https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/refs/heads/main/TorfelkaVPN</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ШАГ 3 -->
+    <div class="step reveal" style="transition-delay:.16s">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Вставьте в клиент</h3>
+        <p>Откройте приложение → нажмите «+» → «Импорт из буфера обмена» → готово.</p>
+        <div class="hint">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Все 19 серверов появятся автоматически
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ПЛАТФОРМЫ ================= -->
+<section id="platforms">
+  <div class="container">
+
+    <div class="section-head reveal">
+      <span class="section-tag">Совместимость</span>
+      <h2>Поддерживаемые платформы</h2>
+      <p>Одна подписка — все ваши устройства.</p>
+    </div>
+
+    <div class="grid grid-5">
+
+      <div class="card platform reveal">
+        <div class="card-icon"><i class="fa-brands fa-android"></i></div>
+        <h3>Android</h3>
+        <p>Телефоны и планшеты</p>
+      </div>
+
+      <div class="card platform reveal" style="transition-delay:.07s">
+        <div class="card-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+        <h3>iOS</h3>
+        <p>iPhone и iPad</p>
+      </div>
+
+      <div class="card platform reveal" style="transition-delay:.14s">
+        <div class="card-icon"><i class="fa-brands fa-windows"></i></div>
+        <h3>Windows</h3>
+        <p>ПК и ноутбуки</p>
+      </div>
+
+      <div class="card platform reveal" style="transition-delay:.21s">
+        <div class="card-icon"><i class="fa-brands fa-apple"></i></div>
+        <h3>macOS</h3>
+        <p>Mac и MacBook</p>
+      </div>
+
+      <div class="card platform reveal" style="transition-delay:.28s">
+        <div class="card-icon"><i class="fa-brands fa-linux"></i></div>
+        <h3>Linux</h3>
+        <p>Любые дистрибутивы</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= TELEGRAM ================= -->
+<section id="contacts">
+  <div class="container">
+    <div class="cta reveal">
+      <div class="cta-icon"><i class="fa-brands fa-telegram"></i></div>
+      <h2>Наш канал</h2>
+      <p>Все обновления, поддержка и новости — в нашем Telegram-канале.</p>
+      <a class="btn btn-primary" href="https://t.me/Torfelka" target="_blank" rel="noopener">
+        <i class="fa-brands fa-telegram"></i> Перейти в @Torfelka
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>© 2026 Torfelka VPN</div>
+    <a href="https://t.me/Torfelka" target="_blank" rel="noopener">
+      <i class="fa-brands fa-telegram"></i> @Torfelka
+    </a>
+  </div>
+</footer>
+
+<!-- ================= TOAST ================= -->
+<div class="toast" id="toast">
+  <i class="fa-solid fa-circle-check"></i> Скопировано!
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var SUB_URL = 'https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/refs/heads/main/TorfelkaVPN';
+
+  /* ---------- Копирование ссылки ---------- */
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
+
+  function showToast(){
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){
+      toast.classList.remove('show');
+    }, 2000);
+  }
+
+  function fallbackCopy(text){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);
+    try { document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(ta);
+  }
+
+  function copySubscription(){
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(SUB_URL)
+        .then(showToast)
+        .catch(function(){
+          fallbackCopy(SUB_URL);
+          showToast();
+        });
+    } else {
+      fallbackCopy(SUB_URL);
+      showToast();
+    }
+  }
+
+  var copyButtons = document.querySelectorAll('.js-copy');
+  for (var i = 0; i < copyButtons.length; i++) {
+    copyButtons[i].addEventListener('click', copySubscription);
+  }
+
+  /* ---------- Анимация появления при скролле ---------- */
+  var revealEls = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -60px 0px'
+    });
+
+    revealEls.forEach(function(el){ observer.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('visible'); });
+  }
+
+  /* ---------- Тень у хедера при скролле ---------- */
+  var header = document.getElementById('header');
+  var ticking = false;
+
+  function onScroll(){
+    if (!ticking) {
+      window.requestAnimationFrame(function(){
+        if (window.scrollY > 12) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+})();
+</script>
+
+</body>
+</html>
