@@ -2,9 +2,14 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Torfelka VPN — VPN, который не подводит</title>
 <meta name="description" content="Torfelka VPN — бесплатный VPN без блокировок, рекламы и логов. Скопируй ссылку — вставь в клиент — работает.">
+<meta name="theme-color" content="#0a0a0f">
+
+<!-- Favicon: фиолетовый щит с буквой T -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a0a0f'/%3E%3Cpath d='M32 8 L50 15 V31 C50 43 42 52 32 56 C22 52 14 43 14 31 V15 Z' fill='%237c5cff'/%3E%3Ctext x='32' y='41' font-family='Arial,Helvetica,sans-serif' font-size='26' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%230a0a0f'/%3E%3Cpath d='M90 22 L140 42 V88 C140 122 118 148 90 160 C62 148 40 122 40 88 V42 Z' fill='%237c5cff'/%3E%3Ctext x='90' y='116' font-family='Arial,Helvetica,sans-serif' font-size='74' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,76 +17,115 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
-/* ============ BASE ============ */
+/* ============================================================
+   ПЕРЕМЕННЫЕ
+   ============================================================ */
 :root{
   --bg:#0a0a0f;
   --bg-soft:#101017;
   --card:#14141d;
-  --card-2:#181822;
   --accent:#7c5cff;
   --accent-light:#a78bfa;
+  --accent-soft:#c4b5fd;
   --text:#f4f4f7;
   --muted:#93939f;
+  --muted-2:#b9b4d6;
   --border:rgba(255,255,255,.07);
+  --border-accent:rgba(124,92,255,.42);
   --radius:22px;
+  --radius-sm:14px;
   --container:1140px;
+
+  --ease-out:cubic-bezier(.2,.8,.3,1);
+  --ease-spring:cubic-bezier(.2,.9,.3,1);
+  --ease-soft:cubic-bezier(.4,0,.2,1);
 }
 
-*{margin:0;padding:0;box-sizing:border-box;}
+/* ============================================================
+   БАЗА
+   ============================================================ */
+*,
+*::before,
+*::after{margin:0;padding:0;box-sizing:border-box;}
 
-html{scroll-behavior:smooth;}
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:88px;
+  -webkit-text-size-adjust:100%;
+}
+
+html,
+body{
+  overflow-x:hidden;
+  max-width:100%;
+}
 
 body{
   background:var(--bg);
   color:var(--text);
-  font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:16px;
   line-height:1.6;
-  overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  position:relative;
+  min-height:100vh;
 }
 
-/* Мягкие свечения на фоне */
+/* Плавное появление градиентов фона при загрузке */
 body::before{
   content:'';
   position:fixed;
   inset:0;
   pointer-events:none;
   z-index:0;
+  opacity:0;
   background:
-    radial-gradient(650px 480px at 12% -6%, rgba(124,92,255,.22), transparent 65%),
-    radial-gradient(600px 420px at 92% 8%, rgba(124,92,255,.13), transparent 65%),
-    radial-gradient(700px 500px at 50% 108%, rgba(124,92,255,.10), transparent 70%);
+    radial-gradient(680px 500px at 10% -8%, rgba(124,92,255,.26), transparent 66%),
+    radial-gradient(620px 440px at 94% 6%, rgba(124,92,255,.15), transparent 66%),
+    radial-gradient(760px 540px at 50% 108%, rgba(124,92,255,.12), transparent 72%);
+  animation:bgFadeIn 1.6s var(--ease-soft) .15s forwards;
 }
+@keyframes bgFadeIn{ to{ opacity:1; } }
 
-img{max-width:100%;display:block;}
 a{text-decoration:none;color:inherit;}
+img{max-width:100%;display:block;}
+
+::selection{background:rgba(124,92,255,.4);color:#fff;}
 
 .container{
   width:100%;
   max-width:var(--container);
   margin:0 auto;
-  padding:0 24px;
+  padding-left:24px;
+  padding-right:24px;
   position:relative;
   z-index:1;
 }
 
-/* ============ HEADER ============ */
+/* ============================================================
+   ХЕДЕР
+   ============================================================ */
 .header{
   position:sticky;
   top:0;
-  z-index:50;
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
+  z-index:60;
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
   background:rgba(10,10,15,.72);
   border-bottom:1px solid transparent;
-  transition:border-color .3s ease, background .3s ease;
+  transition:border-color .4s var(--ease-soft), background .4s var(--ease-soft);
 }
-.header.scrolled{border-bottom-color:var(--border);}
+.header.scrolled{
+  border-bottom-color:var(--border);
+  background:rgba(10,10,15,.88);
+}
 
 .header-inner{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:14px;
   height:72px;
 }
 
@@ -92,22 +136,28 @@ a{text-decoration:none;color:inherit;}
   font-weight:800;
   font-size:18px;
   letter-spacing:-.4px;
+  min-height:44px;
 }
 
 .logo-mark{
-  width:34px;
-  height:34px;
-  border-radius:11px;
+  width:36px;
+  height:36px;
+  border-radius:12px;
   background:linear-gradient(135deg,var(--accent),var(--accent-light));
   display:grid;
   place-items:center;
   font-size:15px;
   color:#fff;
-  box-shadow:0 6px 20px rgba(124,92,255,.45);
+  box-shadow:0 8px 24px rgba(124,92,255,.45);
   flex-shrink:0;
+  transition:transform .4s var(--ease-out), box-shadow .4s var(--ease-out);
+}
+.logo:hover .logo-mark{
+  transform:rotate(-8deg) scale(1.07);
+  box-shadow:0 12px 32px rgba(124,92,255,.62);
 }
 
-.logo span.accent{
+.logo .accent{
   background:linear-gradient(135deg,var(--accent),var(--accent-light));
   -webkit-background-clip:text;
   background-clip:text;
@@ -117,49 +167,59 @@ a{text-decoration:none;color:inherit;}
 .header-link{
   display:inline-flex;
   align-items:center;
-  gap:8px;
+  gap:9px;
   font-size:14px;
-  font-weight:600;
+  font-weight:700;
   color:var(--muted);
-  padding:9px 16px;
+  padding:0 18px;
+  min-height:44px;
   border-radius:999px;
   border:1px solid var(--border);
-  transition:.25s ease;
+  transition:color .3s var(--ease-soft),
+             border-color .3s var(--ease-soft),
+             background .3s var(--ease-soft),
+             transform .3s var(--ease-out),
+             box-shadow .3s var(--ease-out);
 }
 .header-link:hover{
   color:#fff;
-  border-color:rgba(124,92,255,.55);
-  background:rgba(124,92,255,.10);
-  transform:translateY(-1px);
+  border-color:var(--border-accent);
+  background:rgba(124,92,255,.12);
+  transform:translateY(-2px);
+  box-shadow:0 10px 26px rgba(124,92,255,.25);
 }
 
-/* ============ HERO ============ */
+/* ============================================================
+   HERO
+   ============================================================ */
 .hero{
-  padding:96px 0 110px;
+  padding:92px 0 108px;
   text-align:center;
 }
 
-.badge{
+.hero-badge{
   display:inline-flex;
   align-items:center;
   gap:9px;
   font-size:13px;
-  font-weight:600;
+  font-weight:700;
   color:#c9c4ff;
   background:rgba(124,92,255,.12);
   border:1px solid rgba(124,92,255,.30);
-  padding:8px 18px;
+  padding:9px 18px;
   border-radius:999px;
   margin-bottom:30px;
+  animation:fadeUp .9s var(--ease-out) .05s both;
 }
-.badge i{font-size:11px;color:var(--accent-light);}
+.hero-badge i{font-size:11px;color:var(--accent-light);}
 
 .hero h1{
   font-size:clamp(38px,7.2vw,76px);
-  line-height:1.04;
+  line-height:1.05;
   font-weight:800;
-  letter-spacing:-2.5px;
+  letter-spacing:-2.6px;
   margin-bottom:26px;
+  animation:fadeUp .9s var(--ease-out) .16s both;
 }
 
 .hero h1 .grad{
@@ -169,12 +229,13 @@ a{text-decoration:none;color:inherit;}
   -webkit-text-fill-color:transparent;
 }
 
-.hero p.sub{
+.hero .sub{
   font-size:clamp(16px,2vw,20px);
   color:var(--muted);
   max-width:620px;
   margin:0 auto 42px;
   font-weight:500;
+  animation:fadeUp .9s var(--ease-out) .26s both;
 }
 
 .hero-actions{
@@ -183,64 +244,24 @@ a{text-decoration:none;color:inherit;}
   gap:16px;
   justify-content:center;
   align-items:center;
+  animation:fadeUp .9s var(--ease-out) .36s both;
 }
 
-/* ============ BUTTONS ============ */
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:11px;
-  font-family:inherit;
-  font-size:16px;
-  font-weight:700;
-  border:none;
-  cursor:pointer;
-  border-radius:16px;
-  padding:18px 34px;
-  transition:transform .25s cubic-bezier(.2,.8,.3,1), box-shadow .25s ease, background .25s ease, border-color .25s ease, color .25s ease;
-  white-space:nowrap;
-}
-
-.btn-primary{
-  color:#fff;
-  background:linear-gradient(135deg,#7c5cff 0%,#9b7bff 100%);
-  box-shadow:0 12px 34px rgba(124,92,255,.38);
-}
-.btn-primary:hover{
-  transform:translateY(-3px);
-  box-shadow:0 18px 44px rgba(124,92,255,.55);
-}
-.btn-primary:active{transform:translateY(-1px) scale(.99);}
-
-.btn-ghost{
-  color:var(--text);
-  background:rgba(255,255,255,.035);
-  border:1px solid var(--border);
-}
-.btn-ghost:hover{
-  transform:translateY(-3px);
-  background:rgba(124,92,255,.12);
-  border-color:rgba(124,92,255,.5);
-}
-
-.btn i{font-size:15px;}
-
-/* Плашка со ссылкой подписки */
 .sub-link{
   display:inline-flex;
   align-items:center;
   gap:10px;
-  margin-top:28px;
-  padding:11px 20px;
+  margin-top:30px;
+  padding:12px 22px;
   border-radius:999px;
   background:rgba(255,255,255,.03);
   border:1px solid var(--border);
   font-size:12.5px;
-  font-family:'SFMono-Regular',Consolas,monospace;
+  font-family:ui-monospace,'SFMono-Regular',Consolas,monospace;
   color:var(--muted);
   max-width:100%;
   overflow:hidden;
+  animation:fadeUp .9s var(--ease-out) .46s both;
 }
 .sub-link i{color:var(--accent-light);font-size:12px;flex-shrink:0;}
 .sub-link span{
@@ -260,20 +281,26 @@ a{text-decoration:none;color:inherit;}
 .stat{
   background:rgba(255,255,255,.028);
   border:1px solid var(--border);
-  border-radius:16px;
-  padding:18px 30px;
-  min-width:140px;
-  transition:.3s ease;
+  border-radius:18px;
+  padding:20px 32px;
+  min-width:148px;
+  min-height:44px;
+  transition:border-color .4s var(--ease-soft),
+             transform .4s var(--ease-out),
+             box-shadow .4s var(--ease-out),
+             opacity .8s var(--ease-out);
 }
 .stat:hover{
-  border-color:rgba(124,92,255,.4);
-  transform:translateY(-3px);
+  border-color:var(--border-accent);
+  transform:translateY(-4px);
+  box-shadow:0 16px 36px rgba(0,0,0,.4), 0 0 0 1px rgba(124,92,255,.12);
 }
-.stat b{
+.stat-num{
   display:block;
-  font-size:26px;
+  font-size:27px;
   font-weight:800;
   letter-spacing:-1px;
+  line-height:1.2;
   background:linear-gradient(135deg,#a78bfa,#7c5cff);
   -webkit-background-clip:text;
   background-clip:text;
@@ -286,20 +313,27 @@ a{text-decoration:none;color:inherit;}
   letter-spacing:.2px;
 }
 
-/* ============ SECTIONS ============ */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(26px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* ============================================================
+   СЕКЦИИ
+   ============================================================ */
 section{padding:88px 0;}
 
 .section-head{
   text-align:center;
-  max-width:660px;
-  margin:0 auto 60px;
+  max-width:680px;
+  margin:0 auto 58px;
 }
 
 .section-tag{
   display:inline-block;
   font-size:12.5px;
-  font-weight:700;
-  letter-spacing:1.6px;
+  font-weight:800;
+  letter-spacing:1.8px;
   text-transform:uppercase;
   color:var(--accent-light);
   margin-bottom:16px;
@@ -308,7 +342,7 @@ section{padding:88px 0;}
 .section-head h2{
   font-size:clamp(28px,4.6vw,46px);
   font-weight:800;
-  letter-spacing:-1.6px;
+  letter-spacing:-1.7px;
   line-height:1.12;
   margin-bottom:16px;
 }
@@ -319,64 +353,130 @@ section{padding:88px 0;}
   font-weight:500;
 }
 
-/* ============ GRIDS ============ */
-.grid{
-  display:grid;
-  gap:22px;
+/* ============================================================
+   КНОПКИ
+   ============================================================ */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:11px;
+  font-family:inherit;
+  font-size:16px;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+  border-radius:16px;
+  padding:18px 34px;
+  min-height:44px;
+  white-space:nowrap;
+  position:relative;
+  overflow:hidden;
+  transition:transform .4s var(--ease-out),
+             box-shadow .4s var(--ease-out),
+             background .4s var(--ease-soft),
+             border-color .4s var(--ease-soft),
+             color .4s var(--ease-soft);
 }
+
+.btn i{font-size:15px;transition:transform .4s var(--ease-out);}
+.btn:hover i{transform:scale(1.14);}
+
+.btn-primary{
+  color:#fff;
+  background:linear-gradient(135deg,#7c5cff 0%,#9b7bff 100%);
+  box-shadow:0 12px 34px rgba(124,92,255,.38);
+}
+.btn-primary::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,#8f72ff 0%,#b09bff 100%);
+  opacity:0;
+  transition:opacity .4s var(--ease-soft);
+}
+.btn-primary > *{position:relative;z-index:1;}
+.btn-primary:hover{
+  transform:translateY(-4px);
+  box-shadow:0 20px 48px rgba(124,92,255,.6), 0 0 0 1px rgba(167,139,250,.4);
+}
+.btn-primary:hover::after{opacity:1;}
+.btn-primary:active{transform:translateY(-1px) scale(.99);}
+
+.btn-ghost{
+  color:var(--text);
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--border);
+}
+.btn-ghost:hover{
+  transform:translateY(-4px);
+  background:rgba(124,92,255,.14);
+  border-color:var(--border-accent);
+  box-shadow:0 16px 38px rgba(124,92,255,.24);
+}
+
+/* ============================================================
+   СЕТКИ / КАРТОЧКИ
+   ============================================================ */
+.grid{display:grid;gap:22px;}
 .grid-4{grid-template-columns:repeat(4,1fr);}
 .grid-5{grid-template-columns:repeat(5,1fr);}
-.grid-3{grid-template-columns:repeat(3,1fr);}
 
-/* ============ CARD ============ */
 .card{
   position:relative;
   background:linear-gradient(165deg,#16161f 0%,#101017 100%);
   border:1px solid var(--border);
   border-radius:var(--radius);
   padding:32px 28px;
-  transition:transform .35s cubic-bezier(.2,.8,.3,1), border-color .35s ease, box-shadow .35s ease;
   overflow:hidden;
+  transition:transform .5s var(--ease-out),
+             border-color .5s var(--ease-soft),
+             box-shadow .5s var(--ease-out);
 }
 .card::after{
   content:'';
   position:absolute;
   top:0;left:0;right:0;
   height:1px;
-  background:linear-gradient(90deg,transparent,rgba(124,92,255,.65),transparent);
+  background:linear-gradient(90deg,transparent,rgba(124,92,255,.7),transparent);
   opacity:0;
-  transition:opacity .35s ease;
+  transition:opacity .5s var(--ease-soft);
 }
 .card:hover{
-  transform:translateY(-6px);
-  border-color:rgba(124,92,255,.42);
-  box-shadow:0 22px 50px rgba(0,0,0,.5), 0 0 0 1px rgba(124,92,255,.10);
+  transform:translateY(-8px);
+  border-color:var(--border-accent);
+  box-shadow:0 26px 56px rgba(0,0,0,.52), 0 0 0 1px rgba(124,92,255,.12);
 }
 .card:hover::after{opacity:1;}
 
 .card-icon{
-  width:52px;
-  height:52px;
-  border-radius:15px;
+  width:54px;
+  height:54px;
+  border-radius:16px;
   display:grid;
   place-items:center;
-  font-size:20px;
+  font-size:21px;
   color:var(--accent-light);
   background:rgba(124,92,255,.13);
   border:1px solid rgba(124,92,255,.22);
   margin-bottom:22px;
-  transition:.35s ease;
+  transition:background .5s var(--ease-soft),
+             color .5s var(--ease-soft),
+             border-color .5s var(--ease-soft),
+             transform .55s var(--ease-spring),
+             box-shadow .5s var(--ease-out);
 }
 .card:hover .card-icon{
   background:linear-gradient(135deg,var(--accent),var(--accent-light));
   color:#fff;
   border-color:transparent;
-  transform:scale(1.06) rotate(-4deg);
+  transform:rotate(-8deg) scale(1.1);
+  box-shadow:0 12px 30px rgba(124,92,255,.5);
 }
 
 .card h3{
   font-size:18.5px;
-  font-weight:700;
+  font-weight:800;
   letter-spacing:-.4px;
   margin-bottom:10px;
 }
@@ -387,35 +487,45 @@ section{padding:88px 0;}
   line-height:1.65;
 }
 
-/* ============ STEPS ============ */
+/* ============================================================
+   ШАГИ
+   ============================================================ */
 .step{
   display:grid;
   grid-template-columns:64px 1fr;
   gap:26px;
-  padding:36px 34px;
+  padding:38px 34px;
   background:linear-gradient(165deg,#16161f 0%,#101017 100%);
   border:1px solid var(--border);
   border-radius:var(--radius);
   margin-bottom:20px;
-  transition:border-color .35s ease, box-shadow .35s ease;
+  transition:border-color .5s var(--ease-soft),
+             box-shadow .5s var(--ease-out),
+             transform .5s var(--ease-out);
 }
 .step:hover{
   border-color:rgba(124,92,255,.35);
-  box-shadow:0 18px 44px rgba(0,0,0,.42);
+  box-shadow:0 22px 52px rgba(0,0,0,.46);
+  transform:translateY(-3px);
 }
 
 .step-num{
   width:64px;
   height:64px;
-  border-radius:19px;
+  border-radius:20px;
   display:grid;
   place-items:center;
   font-size:24px;
   font-weight:800;
   color:#fff;
   background:linear-gradient(135deg,#7c5cff,#a78bfa);
-  box-shadow:0 10px 28px rgba(124,92,255,.4);
+  box-shadow:0 12px 30px rgba(124,92,255,.42);
   flex-shrink:0;
+  transition:transform .55s var(--ease-spring), box-shadow .5s var(--ease-out);
+}
+.step:hover .step-num{
+  transform:rotate(-6deg) scale(1.06);
+  box-shadow:0 16px 40px rgba(124,92,255,.6);
 }
 
 .step-body h3{
@@ -428,38 +538,98 @@ section{padding:88px 0;}
   color:var(--muted);
   font-size:15px;
   font-weight:500;
-  margin-bottom:20px;
+  margin-bottom:22px;
+}
+
+/* --- ШАГ 1: группы клиентов --- */
+.client-group{margin-bottom:26px;}
+.client-group:last-child{margin-bottom:0;}
+
+.client-title{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  font-size:12.5px;
+  font-weight:800;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  color:var(--accent-light);
+  margin-bottom:14px;
+}
+.client-title::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg,rgba(124,92,255,.35),transparent);
 }
 
 .dl-grid{
-  display:flex;
-  flex-wrap:wrap;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(215px,1fr));
   gap:12px;
 }
 
-.dl-btn{
-  display:inline-flex;
+.dl-item{
+  display:flex;
   align-items:center;
-  gap:10px;
-  padding:13px 22px;
-  border-radius:14px;
-  font-size:14.5px;
-  font-weight:700;
-  color:var(--text);
+  gap:14px;
+  padding:15px 18px;
+  min-height:44px;
+  border-radius:var(--radius-sm);
   background:rgba(255,255,255,.035);
   border:1px solid var(--border);
-  transition:.28s ease;
+  transition:transform .45s var(--ease-out),
+             background .45s var(--ease-soft),
+             border-color .45s var(--ease-soft),
+             box-shadow .45s var(--ease-out);
 }
-.dl-btn i{color:var(--accent-light);font-size:15px;transition:.28s ease;}
-.dl-btn:hover{
-  transform:translateY(-3px);
+.dl-item:hover{
+  transform:translateY(-4px);
   background:rgba(124,92,255,.14);
-  border-color:rgba(124,92,255,.55);
-  box-shadow:0 12px 28px rgba(124,92,255,.22);
+  border-color:var(--border-accent);
+  box-shadow:0 16px 36px rgba(124,92,255,.26);
 }
-.dl-btn:hover i{color:#fff;}
 
-/* Мини-кнопка копирования в шаге 2 */
+.dl-item-icon{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  font-size:17px;
+  color:var(--accent-light);
+  background:rgba(124,92,255,.14);
+  border:1px solid rgba(124,92,255,.22);
+  flex-shrink:0;
+  transition:background .45s var(--ease-soft),
+             color .45s var(--ease-soft),
+             transform .5s var(--ease-spring),
+             border-color .45s var(--ease-soft);
+}
+.dl-item:hover .dl-item-icon{
+  background:linear-gradient(135deg,var(--accent),var(--accent-light));
+  color:#fff;
+  border-color:transparent;
+  transform:rotate(-8deg) scale(1.1);
+}
+
+.dl-item-text{min-width:0;}
+.dl-item-text strong{
+  display:block;
+  font-size:14.5px;
+  font-weight:800;
+  letter-spacing:-.2px;
+  margin-bottom:2px;
+}
+.dl-item-text span{
+  display:block;
+  font-size:12.8px;
+  color:var(--muted);
+  font-weight:500;
+  line-height:1.45;
+}
+
+/* --- ШАГ 2: копирование --- */
 .copy-row{
   display:flex;
   flex-wrap:wrap;
@@ -469,38 +639,84 @@ section{padding:88px 0;}
 .copy-row .btn{padding:15px 28px;font-size:15px;}
 
 .mini-link{
-  font-family:'SFMono-Regular',Consolas,monospace;
+  font-family:ui-monospace,'SFMono-Regular',Consolas,monospace;
   font-size:12.5px;
   color:var(--muted);
   background:rgba(255,255,255,.03);
   border:1px solid var(--border);
-  padding:11px 18px;
-  border-radius:12px;
-  max-width:100%;
+  padding:13px 18px;
+  border-radius:var(--radius-sm);
+  flex:1 1 260px;
+  min-width:0;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-  flex:1 1 260px;
+}
+
+/* --- ШАГ 3: мини-инструкция --- */
+.mini-steps{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:20px;
+}
+.mini-steps li{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:13px 18px;
+  border-radius:var(--radius-sm);
+  background:rgba(255,255,255,.028);
+  border:1px solid var(--border);
+  font-size:14.5px;
+  font-weight:600;
+  color:#d8d6e6;
+  transition:background .4s var(--ease-soft),
+             border-color .4s var(--ease-soft),
+             transform .4s var(--ease-out);
+}
+.mini-steps li:hover{
+  background:rgba(124,92,255,.10);
+  border-color:rgba(124,92,255,.3);
+  transform:translateX(4px);
+}
+
+.mini-step-icon{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  font-size:14px;
+  color:var(--accent-light);
+  background:rgba(124,92,255,.14);
+  border:1px solid rgba(124,92,255,.22);
+  flex-shrink:0;
 }
 
 .hint{
   display:inline-flex;
-  align-items:center;
-  gap:9px;
-  margin-top:18px;
-  font-size:13.5px;
+  align-items:flex-start;
+  gap:11px;
+  font-size:13.8px;
   font-weight:600;
+  line-height:1.5;
   color:var(--accent-light);
   background:rgba(124,92,255,.10);
-  border:1px solid rgba(124,92,255,.22);
-  padding:9px 16px;
-  border-radius:999px;
+  border:1px solid rgba(124,92,255,.24);
+  padding:13px 18px;
+  border-radius:var(--radius-sm);
+  max-width:100%;
 }
+.hint i{margin-top:2px;flex-shrink:0;font-size:14px;}
 
-/* ============ PLATFORMS ============ */
+/* ============================================================
+   ПЛАТФОРМЫ
+   ============================================================ */
 .platform{
   text-align:center;
-  padding:34px 20px;
+  padding:34px 18px;
 }
 .platform .card-icon{
   margin:0 auto 20px;
@@ -511,110 +727,130 @@ section{padding:88px 0;}
 .platform h3{font-size:16.5px;}
 .platform p{font-size:13.5px;}
 
-/* ============ CTA / TELEGRAM ============ */
+/* ============================================================
+   CTA TELEGRAM
+   ============================================================ */
 .cta{
   position:relative;
   text-align:center;
-  padding:68px 34px;
+  padding:70px 34px;
   border-radius:30px;
-  background:linear-gradient(150deg,rgba(124,92,255,.16) 0%,rgba(20,20,29,.85) 55%);
+  background:linear-gradient(150deg,rgba(124,92,255,.17) 0%,rgba(20,20,29,.88) 58%);
   border:1px solid rgba(124,92,255,.28);
   overflow:hidden;
 }
 .cta::before{
   content:'';
   position:absolute;
-  width:420px;height:420px;
-  top:-220px;left:50%;
+  width:460px;height:460px;
+  top:-240px;left:50%;
   transform:translateX(-50%);
-  background:radial-gradient(circle,rgba(124,92,255,.35),transparent 68%);
+  background:radial-gradient(circle,rgba(124,92,255,.4),transparent 68%);
   pointer-events:none;
 }
-.cta > *{position:relative;}
+.cta > *{position:relative;z-index:1;}
 
 .cta-icon{
-  width:74px;height:74px;
+  width:76px;height:76px;
   margin:0 auto 26px;
-  border-radius:23px;
+  border-radius:24px;
   display:grid;
   place-items:center;
-  font-size:32px;
+  font-size:33px;
   color:#fff;
   background:linear-gradient(135deg,#7c5cff,#a78bfa);
-  box-shadow:0 16px 42px rgba(124,92,255,.5);
+  box-shadow:0 18px 44px rgba(124,92,255,.52);
+  transition:transform .55s var(--ease-spring), box-shadow .5s var(--ease-out);
+}
+.cta:hover .cta-icon{
+  transform:rotate(-8deg) scale(1.08);
+  box-shadow:0 24px 56px rgba(124,92,255,.68);
 }
 
 .cta h2{
   font-size:clamp(26px,4.4vw,42px);
   font-weight:800;
-  letter-spacing:-1.4px;
+  letter-spacing:-1.5px;
   margin-bottom:16px;
 }
 
 .cta p{
-  color:#b9b4d6;
+  color:var(--muted-2);
   font-size:16.5px;
   font-weight:500;
   max-width:520px;
   margin:0 auto 34px;
 }
 
-/* ============ FOOTER ============ */
+/* ============================================================
+   ФУТЕР
+   ============================================================ */
 .footer{
   border-top:1px solid var(--border);
-  padding:38px 0;
+  padding:40px 0;
   margin-top:40px;
 }
 .footer-inner{
   display:flex;
   flex-wrap:wrap;
-  gap:18px;
+  gap:16px;
   align-items:center;
   justify-content:space-between;
   font-size:14px;
   color:var(--muted);
-  font-weight:500;
+  font-weight:600;
 }
 .footer a{
-  color:var(--muted);
   display:inline-flex;
   align-items:center;
-  gap:8px;
-  transition:color .25s ease;
+  gap:9px;
+  color:var(--muted);
+  min-height:44px;
+  padding:0 4px;
+  transition:color .35s var(--ease-soft), transform .35s var(--ease-out);
 }
-.footer a:hover{color:var(--accent-light);}
+.footer a:hover{
+  color:var(--accent-light);
+  transform:translateY(-2px);
+}
 
-/* ============ TOAST ============ */
+/* ============================================================
+   TOAST
+   ============================================================ */
 .toast{
   position:fixed;
   left:50%;
   bottom:36px;
-  transform:translate(-50%,140%);
+  transform:translate(-50%,160%);
   display:flex;
   align-items:center;
-  gap:11px;
-  padding:15px 30px;
+  gap:12px;
+  padding:16px 32px;
   border-radius:999px;
   font-size:15px;
-  font-weight:700;
+  font-weight:800;
   color:#fff;
   background:linear-gradient(135deg,#7c5cff,#a78bfa);
-  box-shadow:0 16px 46px rgba(124,92,255,.55);
+  box-shadow:0 18px 50px rgba(124,92,255,.58);
   opacity:0;
   pointer-events:none;
   z-index:200;
-  transition:transform .42s cubic-bezier(.2,.9,.3,1), opacity .35s ease;
+  transition:transform .55s var(--ease-spring), opacity .4s var(--ease-soft);
 }
 .toast.show{
   transform:translate(-50%,0);
   opacity:1;
 }
+.toast i{font-size:18px;}
 
-/* ============ REVEAL ============ */
+/* ============================================================
+   REVEAL / STAGGER
+   ============================================================ */
 .reveal{
   opacity:0;
-  transform:translateY(26px);
-  transition:opacity .8s cubic-bezier(.2,.8,.3,1), transform .8s cubic-bezier(.2,.8,.3,1);
+  transform:translateY(30px);
+  transition:opacity .9s var(--ease-out), transform .9s var(--ease-out);
+  transition-delay:var(--d,0s);
   will-change:opacity, transform;
 }
 .reveal.visible{
@@ -622,68 +858,156 @@ section{padding:88px 0;}
   transform:translateY(0);
 }
 
-/* ============ АДАПТИВ ============ */
+/* ============================================================
+   АДАПТИВ
+   ============================================================ */
 @media (max-width:1024px){
   .grid-4{grid-template-columns:repeat(2,1fr);}
   .grid-5{grid-template-columns:repeat(3,1fr);}
-  .grid-3{grid-template-columns:repeat(2,1fr);}
 }
 
-@media (max-width:720px){
-  .hero{padding:64px 0 76px;}
-  section{padding:64px 0;}
-  .header-inner{height:64px;}
-  .logo{font-size:16px;}
-  .logo-mark{width:30px;height:30px;font-size:13px;border-radius:10px;}
-
-  .grid-4,
-  .grid-5,
-  .grid-3{grid-template-columns:1fr;}
-
-  .hero h1{letter-spacing:-1.4px;}
-  .hero-actions{flex-direction:column;width:100%;}
-  .hero-actions .btn{width:100%;}
-
-  .stats{gap:10px;}
-  .stat{flex:1 1 130px;padding:15px 18px;min-width:0;}
-  .stat b{font-size:22px;}
-
-  .card{padding:26px 22px;}
+@media (max-width:860px){
   .step{
     grid-template-columns:1fr;
     gap:18px;
-    padding:28px 22px;
   }
-  .step-num{width:52px;height:52px;border-radius:16px;font-size:20px;}
+}
 
-  .dl-btn{flex:1 1 100%;justify-content:center;}
+@media (max-width:720px){
+  html{scroll-padding-top:76px;}
+
+  .container{padding-left:20px;padding-right:20px;}
+
+  .hero{padding:62px 0 74px;}
+  section{padding:62px 0;}
+
+  .header-inner{height:64px;}
+  .logo{font-size:16px;}
+  .logo-mark{width:32px;height:32px;font-size:13px;border-radius:11px;}
+  .header-link{padding:0 14px;font-size:13px;}
+  .header-link span{display:none;}
+
+  .hero h1{
+    letter-spacing:-1.5px;
+    margin-bottom:20px;
+  }
+  .hero .sub{
+    font-size:16px;
+    margin-bottom:34px;
+  }
+
+  .hero-actions{
+    flex-direction:column;
+    width:100%;
+    gap:12px;
+  }
+  .hero-actions .btn{width:100%;}
+
+  .sub-link{
+    font-size:11.5px;
+    padding:11px 16px;
+    width:100%;
+  }
+
+  .stats{gap:10px;margin-top:44px;}
+  .stat{
+    flex:1 1 calc(50% - 10px);
+    min-width:0;
+    padding:16px 14px;
+  }
+  .stat-num{font-size:23px;}
+
+  .grid-4,
+  .grid-5{grid-template-columns:1fr;}
+  .grid{gap:16px;}
+
+  .card{padding:26px 22px;}
+  .card-icon{width:50px;height:50px;font-size:19px;margin-bottom:18px;}
+
+  .section-head{margin-bottom:44px;}
+  .section-head p{font-size:15px;}
+
+  .step{
+    padding:26px 20px;
+    gap:16px;
+    margin-bottom:16px;
+  }
+  .step-num{width:54px;height:54px;border-radius:17px;font-size:21px;}
+  .step-body h3{font-size:18.5px;}
+  .step-body > p{font-size:14.5px;margin-bottom:18px;}
+
+  .dl-grid{grid-template-columns:1fr;gap:10px;}
+  .dl-item{
+    padding:14px 16px;
+    min-height:44px;
+  }
+  .dl-item-text strong{font-size:14.5px;}
+  .dl-item-text span{font-size:12.5px;}
+
+  .copy-row{flex-direction:column;align-items:stretch;gap:12px;}
   .copy-row .btn{width:100%;}
-  .mini-link{flex:1 1 100%;}
+  .mini-link{flex:1 1 auto;width:100%;font-size:11.5px;}
 
-  .cta{padding:48px 22px;border-radius:24px;}
-  .cta-icon{width:62px;height:62px;font-size:26px;border-radius:19px;}
+  .mini-steps li{
+    font-size:14px;
+    padding:12px 15px;
+    gap:12px;
+  }
+  .mini-step-icon{width:32px;height:32px;font-size:13px;}
 
-  .footer-inner{justify-content:center;text-align:center;}
+  .hint{font-size:13.5px;padding:12px 16px;}
+
+  .platform{padding:28px 18px;}
+
+  .cta{
+    padding:46px 22px;
+    border-radius:24px;
+  }
+  .cta-icon{width:64px;height:64px;font-size:27px;border-radius:20px;margin-bottom:22px;}
+  .cta p{font-size:15px;margin-bottom:28px;}
+
+  .footer-inner{
+    justify-content:center;
+    text-align:center;
+    font-size:14px;
+  }
 
   .toast{
-    bottom:22px;
+    bottom:20px;
     width:calc(100% - 32px);
     justify-content:center;
-    padding:14px 22px;
+    padding:15px 22px;
     font-size:14px;
   }
 }
 
+@media (max-width:380px){
+  .hero h1{font-size:34px;letter-spacing:-1.2px;}
+  .stat{flex:1 1 100%;}
+  .logo{font-size:15px;}
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
 @media (prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important;}
-  .reveal{opacity:1;transform:none;}
+  *,
+  *::before,
+  *::after{
+    animation-duration:.001ms !important;
+    animation-delay:0ms !important;
+    transition-duration:.001ms !important;
+    transition-delay:0ms !important;
+  }
   html{scroll-behavior:auto;}
+  .reveal{opacity:1;transform:none;}
+  body::before{opacity:1;}
 }
 </style>
 </head>
 <body>
 
-<!-- ================= HEADER ================= -->
+<!-- ==================== ХЕДЕР ==================== -->
 <header class="header" id="header">
   <div class="container header-inner">
     <a href="#" class="logo">
@@ -691,29 +1015,25 @@ section{padding:88px 0;}
       Torfelka <span class="accent">VPN</span>
     </a>
     <a class="header-link" href="https://t.me/Torfelka" target="_blank" rel="noopener">
-      <i class="fa-brands fa-telegram"></i> Наш канал
+      <i class="fa-brands fa-telegram"></i> <span>Наш канал</span>
     </a>
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
+<!-- ==================== HERO ==================== -->
 <section class="hero">
   <div class="container">
 
-    <div class="badge reveal">
+    <div class="hero-badge">
       <i class="fa-solid fa-bolt"></i> Бесплатно • Без рекламы • Без логов
     </div>
 
-    <h1 class="reveal" style="transition-delay:.08s">
-      VPN, который <span class="grad">не подводит</span>
-    </h1>
+    <h1>VPN, который <span class="grad">не подводит</span></h1>
 
-    <p class="sub reveal" style="transition-delay:.16s">
-      Без блокировок, без рекламы, без логов. Полностью бесплатно.
-    </p>
+    <p class="sub">Без блокировок, без рекламы, без логов. Полностью бесплатно.</p>
 
-    <div class="hero-actions reveal" style="transition-delay:.24s">
-      <button class="btn btn-primary js-copy">
+    <div class="hero-actions">
+      <button class="btn btn-primary js-copy" type="button">
         <i class="fa-regular fa-copy"></i> Скопировать ссылку-подписку
       </button>
       <a href="#how" class="btn btn-ghost">
@@ -721,22 +1041,34 @@ section{padding:88px 0;}
       </a>
     </div>
 
-    <div class="sub-link reveal" style="transition-delay:.32s">
+    <div class="sub-link">
       <i class="fa-solid fa-link"></i>
-      <span id="subUrl">https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/refs/heads/main/TorfelkaVPN</span>
+      <span>https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/refs/heads/main/TorfelkaVPN</span>
     </div>
 
-    <div class="stats reveal" style="transition-delay:.4s">
-      <div class="stat"><b>19</b><small>серверов</small></div>
-      <div class="stat"><b>5</b><small>платформ</small></div>
-      <div class="stat"><b>0 ₽</b><small>навсегда</small></div>
-      <div class="stat"><b>24/7</b><small>работает</small></div>
+    <div class="stats" id="stats">
+      <div class="stat reveal" style="--d:0s">
+        <b class="stat-num" data-value="19" data-suffix="">0</b>
+        <small>серверов</small>
+      </div>
+      <div class="stat reveal" style="--d:.12s">
+        <b class="stat-num" data-value="5" data-suffix="">0</b>
+        <small>платформ</small>
+      </div>
+      <div class="stat reveal" style="--d:.24s">
+        <b class="stat-num" data-value="0" data-suffix=" ₽">0 ₽</b>
+        <small>навсегда</small>
+      </div>
+      <div class="stat reveal" style="--d:.36s">
+        <b class="stat-num" data-value="24" data-suffix="/7">0/7</b>
+        <small>работает</small>
+      </div>
     </div>
 
   </div>
 </section>
 
-<!-- ================= ЧТО ДАЁТ VPN ================= -->
+<!-- ==================== ЧТО ДАЁТ VPN ==================== -->
 <section id="features">
   <div class="container">
 
@@ -748,25 +1080,25 @@ section{padding:88px 0;}
 
     <div class="grid grid-4">
 
-      <div class="card reveal">
+      <div class="card reveal" style="--d:0s">
         <div class="card-icon"><i class="fa-solid fa-unlock-keyhole"></i></div>
         <h3>Обход блокировок</h3>
         <p>Доступ к любым сайтам и сервисам, включая заблокированные в РФ.</p>
       </div>
 
-      <div class="card reveal" style="transition-delay:.08s">
+      <div class="card reveal" style="--d:.1s">
         <div class="card-icon"><i class="fa-solid fa-gauge-high"></i></div>
         <h3>Автовыбор сервера</h3>
         <p>Клиент сам выбирает самый быстрый сервер по пингу.</p>
       </div>
 
-      <div class="card reveal" style="transition-delay:.16s">
+      <div class="card reveal" style="--d:.2s">
         <div class="card-icon"><i class="fa-solid fa-eye-slash"></i></div>
         <h3>Без логов</h3>
         <p>Мы не храним историю ваших подключений.</p>
       </div>
 
-      <div class="card reveal" style="transition-delay:.24s">
+      <div class="card reveal" style="--d:.3s">
         <div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
         <h3>Мультиплатформа</h3>
         <p>Работает на Android, iOS, Windows, macOS, Linux.</p>
@@ -776,7 +1108,7 @@ section{padding:88px 0;}
   </div>
 </section>
 
-<!-- ================= КАК ПОДКЛЮЧИТЬСЯ ================= -->
+<!-- ==================== КАК ПОДКЛЮЧИТЬСЯ ==================== -->
 <section id="how">
   <div class="container">
 
@@ -791,37 +1123,74 @@ section{padding:88px 0;}
       <div class="step-num">1</div>
       <div class="step-body">
         <h3>Скачайте клиент</h3>
-        <p>Выберите приложение для своего устройства — любое из двух подойдёт.</p>
+        <p>Выберите одно приложение для своего устройства — любое из двух подойдёт.</p>
 
-        <div class="dl-grid">
-          <a class="dl-btn" href="https://github.com/INCY-DEV/incy-platforms" target="_blank" rel="noopener">
-            <i class="fa-solid fa-desktop"></i> Incy для ПК
-          </a>
-          <a class="dl-btn" href="https://play.google.com/store/apps/details?id=llc.itdev.incy&hl=ru" target="_blank" rel="noopener">
-            <i class="fa-brands fa-android"></i> Incy для Android
-          </a>
-          <a class="dl-btn" href="https://github.com/Happ-proxy/happ-desktop/releases/latest" target="_blank" rel="noopener">
-            <i class="fa-solid fa-desktop"></i> Happ для ПК
-          </a>
-          <a class="dl-btn" href="https://play.google.com/store/apps/details?id=com.happproxy&hl=ru" target="_blank" rel="noopener">
-            <i class="fa-brands fa-android"></i> Happ для Android
-          </a>
-          <a class="dl-btn" href="https://apps.apple.com/app/happ-proxy-utility/id6504287215" target="_blank" rel="noopener">
-            <i class="fa-brands fa-apple"></i> Happ для iOS
-          </a>
+        <div class="client-group">
+          <div class="client-title"><i class="fa-solid fa-star"></i> Incy — простой и лёгкий</div>
+          <div class="dl-grid">
+
+            <a class="dl-item" href="https://github.com/INCY-DEV/incy-platforms" target="_blank" rel="noopener">
+              <span class="dl-item-icon"><i class="fa-solid fa-desktop"></i></span>
+              <span class="dl-item-text">
+                <strong>Incy для ПК</strong>
+                <span>Windows, macOS, Linux. Минималистичный интерфейс, быстрый импорт</span>
+              </span>
+            </a>
+
+            <a class="dl-item" href="https://play.google.com/store/apps/details?id=llc.itdev.incy&hl=ru" target="_blank" rel="noopener">
+              <span class="dl-item-icon"><i class="fa-brands fa-android"></i></span>
+              <span class="dl-item-text">
+                <strong>Incy для Android</strong>
+                <span>Телефоны и планшеты. Простое подключение в один тап</span>
+              </span>
+            </a>
+
+          </div>
         </div>
+
+        <div class="client-group">
+          <div class="client-title"><i class="fa-solid fa-rocket"></i> Happ — больше возможностей</div>
+          <div class="dl-grid">
+
+            <a class="dl-item" href="https://github.com/Happ-proxy/happ-desktop/releases/latest" target="_blank" rel="noopener">
+              <span class="dl-item-icon"><i class="fa-solid fa-desktop"></i></span>
+              <span class="dl-item-text">
+                <strong>Happ для ПК</strong>
+                <span>Windows, macOS, Linux. Гибкие настройки и тонкий контроль</span>
+              </span>
+            </a>
+
+            <a class="dl-item" href="https://play.google.com/store/apps/details?id=com.happproxy&hl=ru" target="_blank" rel="noopener">
+              <span class="dl-item-icon"><i class="fa-brands fa-android"></i></span>
+              <span class="dl-item-text">
+                <strong>Happ для Android</strong>
+                <span>Телефоны и планшеты. Удобный выбор серверов</span>
+              </span>
+            </a>
+
+            <a class="dl-item" href="https://apps.apple.com/app/happ-proxy-utility/id6504287215" target="_blank" rel="noopener">
+              <span class="dl-item-icon"><i class="fa-brands fa-apple"></i></span>
+              <span class="dl-item-text">
+                <strong>Happ для iOS</strong>
+                <span>iPhone и iPad. Единственный вариант для Apple</span>
+              </span>
+            </a>
+
+          </div>
+        </div>
+
       </div>
     </div>
 
     <!-- ШАГ 2 -->
-    <div class="step reveal" style="transition-delay:.08s">
+    <div class="step reveal" style="--d:.1s">
       <div class="step-num">2</div>
       <div class="step-body">
         <h3>Скопируйте ссылку-подписку</h3>
-        <p>Одна кнопка — ссылка уже в буфере обмена.</p>
+        <p>Одна кнопка — и ссылка уже в буфере обмена. Вставлять вручную ничего не нужно.</p>
 
         <div class="copy-row">
-          <button class="btn btn-primary js-copy">
+          <button class="btn btn-primary js-copy" type="button">
             <i class="fa-regular fa-copy"></i> Скопировать ссылку
           </button>
           <div class="mini-link">https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/refs/heads/main/TorfelkaVPN</div>
@@ -830,13 +1199,38 @@ section{padding:88px 0;}
     </div>
 
     <!-- ШАГ 3 -->
-    <div class="step reveal" style="transition-delay:.16s">
+    <div class="step reveal" style="--d:.2s">
       <div class="step-num">3</div>
       <div class="step-body">
         <h3>Вставьте в клиент</h3>
-        <p>Откройте приложение → нажмите «+» → «Импорт из буфера обмена» → готово.</p>
+        <p>Пять простых действий — и вы подключены.</p>
+
+        <ul class="mini-steps">
+          <li>
+            <span class="mini-step-icon"><i class="fa-solid fa-mobile-screen-button"></i></span>
+            Открой приложение
+          </li>
+          <li>
+            <span class="mini-step-icon"><i class="fa-solid fa-plus"></i></span>
+            Нажми «+»
+          </li>
+          <li>
+            <span class="mini-step-icon"><i class="fa-solid fa-clipboard"></i></span>
+            Выбери «Импорт из буфера обмена»
+          </li>
+          <li>
+            <span class="mini-step-icon"><i class="fa-solid fa-list-check"></i></span>
+            Проверь, что появились 19 серверов
+          </li>
+          <li>
+            <span class="mini-step-icon"><i class="fa-solid fa-power-off"></i></span>
+            Нажми «Подключиться»
+          </li>
+        </ul>
+
         <div class="hint">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> Все 19 серверов появятся автоматически
+          <i class="fa-solid fa-circle-info"></i>
+          <span>Если серверы не появились — обнови подписку или перезапусти приложение.</span>
         </div>
       </div>
     </div>
@@ -844,7 +1238,7 @@ section{padding:88px 0;}
   </div>
 </section>
 
-<!-- ================= ПЛАТФОРМЫ ================= -->
+<!-- ==================== ПЛАТФОРМЫ ==================== -->
 <section id="platforms">
   <div class="container">
 
@@ -856,31 +1250,31 @@ section{padding:88px 0;}
 
     <div class="grid grid-5">
 
-      <div class="card platform reveal">
+      <div class="card platform reveal" style="--d:0s">
         <div class="card-icon"><i class="fa-brands fa-android"></i></div>
         <h3>Android</h3>
         <p>Телефоны и планшеты</p>
       </div>
 
-      <div class="card platform reveal" style="transition-delay:.07s">
+      <div class="card platform reveal" style="--d:.08s">
         <div class="card-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
         <h3>iOS</h3>
         <p>iPhone и iPad</p>
       </div>
 
-      <div class="card platform reveal" style="transition-delay:.14s">
+      <div class="card platform reveal" style="--d:.16s">
         <div class="card-icon"><i class="fa-brands fa-windows"></i></div>
         <h3>Windows</h3>
         <p>ПК и ноутбуки</p>
       </div>
 
-      <div class="card platform reveal" style="transition-delay:.21s">
+      <div class="card platform reveal" style="--d:.24s">
         <div class="card-icon"><i class="fa-brands fa-apple"></i></div>
         <h3>macOS</h3>
         <p>Mac и MacBook</p>
       </div>
 
-      <div class="card platform reveal" style="transition-delay:.28s">
+      <div class="card platform reveal" style="--d:.32s">
         <div class="card-icon"><i class="fa-brands fa-linux"></i></div>
         <h3>Linux</h3>
         <p>Любые дистрибутивы</p>
@@ -890,7 +1284,7 @@ section{padding:88px 0;}
   </div>
 </section>
 
-<!-- ================= TELEGRAM ================= -->
+<!-- ==================== TELEGRAM CTA ==================== -->
 <section id="contacts">
   <div class="container">
     <div class="cta reveal">
@@ -904,7 +1298,7 @@ section{padding:88px 0;}
   </div>
 </section>
 
-<!-- ================= FOOTER ================= -->
+<!-- ==================== ФУТЕР ==================== -->
 <footer class="footer">
   <div class="container footer-inner">
     <div>© 2026 Torfelka VPN</div>
@@ -914,8 +1308,8 @@ section{padding:88px 0;}
   </div>
 </footer>
 
-<!-- ================= TOAST ================= -->
-<div class="toast" id="toast">
+<!-- ==================== TOAST ==================== -->
+<div class="toast" id="toast" role="status" aria-live="polite">
   <i class="fa-solid fa-circle-check"></i> Скопировано!
 </div>
 
@@ -923,18 +1317,28 @@ section{padding:88px 0;}
 (function(){
   'use strict';
 
+  /* ==========================================================
+     КОНСТАНТЫ
+     ========================================================== */
   var SUB_URL = 'https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/refs/heads/main/TorfelkaVPN';
+  var TOAST_TIME = 2000;
 
-  /* ---------- Копирование ссылки ---------- */
+  var reduceMotion = window.matchMedia &&
+                     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ==========================================================
+     КОПИРОВАНИЕ ССЫЛКИ
+     ========================================================== */
   var toast = document.getElementById('toast');
   var toastTimer = null;
 
   function showToast(){
+    if (!toast) return;
     toast.classList.add('show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function(){
       toast.classList.remove('show');
-    }, 2000);
+    }, TOAST_TIME);
   }
 
   function fallbackCopy(text){
@@ -942,13 +1346,27 @@ section{padding:88px 0;}
     ta.value = text;
     ta.setAttribute('readonly', '');
     ta.style.position = 'fixed';
-    ta.style.top = '-1000px';
+    ta.style.top = '-2000px';
+    ta.style.left = '-2000px';
     ta.style.opacity = '0';
     document.body.appendChild(ta);
+
+    var selection = document.getSelection();
+    var previousRange = selection && selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+
     ta.select();
     ta.setSelectionRange(0, ta.value.length);
-    try { document.execCommand('copy'); } catch(e) {}
+
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+
     document.body.removeChild(ta);
+
+    if (previousRange && selection) {
+      selection.removeAllRanges();
+      selection.addRange(previousRange);
+    }
+    return ok;
   }
 
   function copySubscription(){
@@ -966,51 +1384,157 @@ section{padding:88px 0;}
   }
 
   var copyButtons = document.querySelectorAll('.js-copy');
-  for (var i = 0; i < copyButtons.length; i++) {
-    copyButtons[i].addEventListener('click', copySubscription);
-  }
+  Array.prototype.forEach.call(copyButtons, function(btn){
+    btn.addEventListener('click', copySubscription);
+  });
 
-  /* ---------- Анимация появления при скролле ---------- */
+  /* ==========================================================
+     REVEAL ПРИ СКРОЛЛЕ (со stagger через CSS-переменную --d)
+     ========================================================== */
   var revealEls = document.querySelectorAll('.reveal');
 
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function(entries){
+  function revealAll(){
+    Array.prototype.forEach.call(revealEls, function(el){
+      el.classList.add('visible');
+    });
+  }
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealAll();
+  } else {
+    var revealObserver = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+          revealObserver.unobserve(entry.target);
         }
       });
     }, {
       threshold: 0.12,
-      rootMargin: '0px 0px -60px 0px'
+      rootMargin: '0px 0px -70px 0px'
     });
 
-    revealEls.forEach(function(el){ observer.observe(el); });
-  } else {
-    revealEls.forEach(function(el){ el.classList.add('visible'); });
+    Array.prototype.forEach.call(revealEls, function(el){
+      revealObserver.observe(el);
+    });
   }
 
-  /* ---------- Тень у хедера при скролле ---------- */
+  /* ==========================================================
+     АНИМАЦИЯ СЧЁТЧИКОВ (19 / 5 / 0 ₽ / 24/7)
+     ========================================================== */
+  var counters = document.querySelectorAll('.stat-num');
+
+  function easeOutCubic(t){
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function animateCounter(el, delay){
+    var target = parseFloat(el.getAttribute('data-value')) || 0;
+    var suffix = el.getAttribute('data-suffix') || '';
+    var duration = 1500;
+
+    if (reduceMotion || target === 0) {
+      el.textContent = target + suffix;
+      return;
+    }
+
+    setTimeout(function(){
+      var startTime = null;
+
+      function frame(now){
+        if (startTime === null) startTime = now;
+        var progress = Math.min((now - startTime) / duration, 1);
+        var value = Math.round(target * easeOutCubic(progress));
+        el.textContent = value + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          el.textContent = target + suffix;
+        }
+      }
+
+      requestAnimationFrame(frame);
+    }, delay || 0);
+  }
+
+  if (counters.length) {
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      Array.prototype.forEach.call(counters, function(el){
+        animateCounter(el, 0);
+      });
+    } else {
+      var counterObserver = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting) {
+            var el = entry.target;
+            var index = Array.prototype.indexOf.call(counters, el);
+            animateCounter(el, index * 160);
+            counterObserver.unobserve(el);
+          }
+        });
+      }, {
+        threshold: 0.4,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      Array.prototype.forEach.call(counters, function(el){
+        counterObserver.observe(el);
+      });
+    }
+  }
+
+  /* ==========================================================
+     ТЕНЬ У ХЕДЕРА ПРИ СКРОЛЛЕ
+     ========================================================== */
   var header = document.getElementById('header');
   var ticking = false;
 
   function onScroll(){
-    if (!ticking) {
-      window.requestAnimationFrame(function(){
-        if (window.scrollY > 12) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
+    if (ticking) return;
+    ticking = true;
+
+    window.requestAnimationFrame(function(){
+      if (window.scrollY > 12) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      ticking = false;
+    });
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  /* ==========================================================
+     ПЛАВНЫЙ СКРОЛЛ ПО ЯКОРЯМ (с учётом высоты хедера)
+     ========================================================== */
+  var anchors = document.querySelectorAll('a[href^="#"]');
+
+  Array.prototype.forEach.call(anchors, function(link){
+    link.addEventListener('click', function(e){
+      var href = link.getAttribute('href');
+      if (!href || href === '#') return;
+
+      var targetEl = document.querySelector(href);
+      if (!targetEl) return;
+
+      e.preventDefault();
+
+      var headerHeight = header ? header.offsetHeight : 0;
+      var top = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight - 14;
+
+      window.scrollTo({
+        top: top < 0 ? 0 : top,
+        behavior: reduceMotion ? 'auto' : 'smooth'
+      });
+
+      if (history.replaceState) {
+        history.replaceState(null, '', href);
+      }
+    });
+  });
 
 })();
 </script>
