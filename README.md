@@ -6,7 +6,7 @@
 
 ### 🛡️ Быстрый, стабильный и полностью бесплатный VPN
 
-**Обход блокировок • Без рекламы • Без логов • Мультиплатформа**
+**Бесплатно • Без рекламы • Без логов**
 
 <br>
 
@@ -16,120 +16,27 @@
 
 <br>
 
+**🌐 Все данные, ссылки и инструкции — на сайте:**
+
+### 👉 [torfelka.github.io/TorfelkaVPN](https://torfelka.github.io/TorfelkaVPN/)
+
+<br>
+
 ---
 
 </div>
 
-## 🚀 Быстрый старт
+## 🚀 Что там есть
 
-Скопируй ссылку-подписку, вставь её в клиент — и всё готово.
+| Раздел | Что внутри |
+|--------|------------|
+| **Быстрый старт** | Ссылка-подписка в один клик |
+| **Как подключиться** | 3 шага + клиенты для ПК, Android и iOS |
+| **Возможности** | Что даёт VPN |
+| **Платформы** | Android, iOS, Windows, macOS, Linux |
+| **Telegram** | Кнопка перехода в @Torfelka |
 
-Ссылка-подписка:
-
-    https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/main/TorfelkaVPN
-
-<div align="center">
-
-**👆 Скопируй эту ссылку и вставь в клиент как подписку**
-
-</div>
-
----
-
-## 📱 Как подключиться
-
-### Шаг 1. Скачай клиент
-
-| Платформа | Клиент | Ссылка |
-|-----------|--------|--------|
-| 🖥️ ПК | Incy | [Скачать](https://github.com/INCY-DEV/incy-platforms) |
-| 🤖 Android | Incy | [Google Play](https://play.google.com/store/apps/details?id=llc.itdev.incy&hl=ru) |
-| 🖥️ ПК | Happ | [Скачать](https://github.com/Happ-proxy/happ-desktop/releases/latest) |
-| 🤖 Android | Happ | [Google Play](https://play.google.com/store/apps/details?id=com.happproxy&hl=ru) |
-| 🍎 iOS | Happ | [App Store](https://apps.apple.com/app/happ-proxy-utility/id6504287215) |
-
-### Шаг 2. Скопируй ссылку-подписку
-
-Ссылка-подписка:
-
-    https://raw.githubusercontent.com/Torfelka/TorfelkaVPN/main/TorfelkaVPN
-
-### Шаг 3. Вставь в клиент
-
-Открой приложение → нажми **«+»** → выбери **«Импорт из буфера обмена»** → готово.
-
-> 🎉 Все **19 серверов** появятся автоматически.
-
----
-
-## ✨ Что даёт Torfelka VPN
-
-| | |
-|---|---|
-| 🔓 Обход блокировок | Доступ к любым сайтам и сервисам |
-| ⚡ Автовыбор сервера | Клиент сам выбирает самый быстрый по пингу |
-| 🕵️ Без логов | Мы не храним историю подключений |
-| 🌍 Мультиплатформа | Android, iOS, Windows, macOS, Linux |
-| 🆓 Бесплатно | Без рекламы и подписок |
-| 🛠️ 24/7 | Серверы обновляются и работают всегда |
-
----
-
-## 🌍 Доступные серверы
-
-<div align="center">
-
-| 🇳🇱 NL | 🇫🇮 FI | 🇩🇪 DE | 🇫🇷 FR | 🇸🇪 SE | 🇷🇴 RO |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| 🇪🇪 EE | 🇱🇹 LT | 🇬🇧 UK | 🇷🇺 RU | ⚡ AUTO | |
-
-</div>
-
-**Всего 19 серверов** в разных странах.
-
----
-
-## 🤝 Поддержка
-
-<div align="center">
-
-[![Telegram](https://img.shields.io/badge/Присоединиться-@Torfelka-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/Torfelka)
-
-</div>
-
----
-
-## ❓ Частые вопросы
-
-<details>
-<summary><b>Сколько это стоит?</b></summary>
-
-Бесплатно. Навсегда. Без рекламы и скрытых платежей.
-
-</details>
-
-<details>
-<summary><b>Какие сервера используются?</b></summary>
-
-19 серверов в разных странах. Клиент сам выбирает лучший по пингу. Список обновляется автоматически.
-
-</details>
-
-<details>
-<summary><b>Как обновить подписку?</b></summary>
-
-В клиенте нажми «Обновить подписку». Если что-то отвалилось — переключись на другой сервер вручную или нажми «Пинг».
-
-</details>
-
-<details>
-<summary><b>Куда жаловаться, если не работает?</b></summary>
-
-В наш канал: [@Torfelka](https://t.me/Torfelka). Постараемся помочь как можно быстрее.
-
-</details>
-
----
+<br>
 
 <div align="center">
 
