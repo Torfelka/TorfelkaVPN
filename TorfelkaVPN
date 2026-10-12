@@ -20,3 +20,8 @@ vless://c5fc412a-4d77-42af-82b6-00c7768c402e@node-usa.usel.pro:443?type=tcp&secu
 #profile-update-interval: 1
 #subscription-ping-onopen-enabled: true
 #profile-title: TorfelkaVPN
+#subscription-userinfo: upload=0; download=0; total=107374182400; expire=0
+#announce: Добро пожаловать в Torfelka VPN!
+#support-url: https://t.me/Torfelw
+#profile-web-page-url: https://t.me/Torfelka
+#subscription-pin: true
