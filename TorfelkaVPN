@@ -1,6 +1,7 @@
 #subscription-userinfo: upload=0; download=0; total=536870912000; expire=1795132800
 #subscription-pin: true
 #subscriptions-sort-type: ping
+Subscription-Userinfo: upload=0; download=0; total=536870912000; expire=1795132800
 vless://3237b3cf-0c69-4dfa-b838-c03399e220c5@45.137.86.63:8080?type=grpc&security=reality&fp=firefox&sni=cdn.shopify.com&pbk=g0EvKBte8zYrEc8oF0VNhxvIqqUvNXCp54UWYekc60k&sid=e4&spx=%2F#Torfelka+|%F0%9F%87%BC%F0%9F%87%BC+NL
 vless://3237b3cf-0c69-4dfa-b838-c03399e220c5@45.137.86.60:8080?type=grpc&security=reality&fp=firefox&sni=cdn.shopify.com&pbk=g0EvKBte8zYrEc8oF0VNhxvIqqUvNXCp54UWYekc60k&sid=e4&spx=%2F#Torfelka+|%F0%9F%87%AB%F0%9F%87%AE+FI
 vless://3237b3cf-0c69-4dfa-b838-c03399e220c5@45.137.86.101:8080?type=grpc&security=reality&fp=firefox&sni=cdn.shopify.com&pbk=g0EvKBte8zYrEc8oF0VNhxvIqqUvNXCp54UWYekc60k&sid=e4&spx=%2F#Torfelka+|%F0%9F%87%A9%F0%9F%87%AE+DE
