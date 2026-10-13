@@ -25,3 +25,4 @@ vless://c5fc412a-4d77-42af-82b6-00c7768c402e@node-usa.usel.pro:443?type=tcp&secu
 #profile-web-page-url: https://torfelka.github.io/TorfelkaVPN/
 #support-url: https://t.me/TorfelkaVPN
 #subscription-pin: true
+#subscription-userinfo: upload=0; download=0; total=536870912000; expire=0
