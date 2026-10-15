@@ -4,15 +4,12 @@
 
 <br>
 
-### 🛡️ Быстрый, стабильный и полностью бесплатный VPN
+### 🛡️ ЗАКРЫТ
 
-**Бесплатно • Без рекламы • Без логов**
-
+**ЗАКРЫТО
 <br>
 
-[![Telegram](https://img.shields.io/badge/Telegram-@TorfelkaVPN-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/Torfelka)
-[![Сайт](https://img.shields.io/badge/Сайт-torfelka.github.io-7C5CFF?style=for-the-badge&logo=githubpages&logoColor=white)](https://torfelka.github.io/TorfelkaVPN/)
-[![Free](https://img.shields.io/badge/Лицензия-Free-4CAF50?style=for-the-badge)]()
+
 
 <br>
 
@@ -25,26 +22,6 @@
 ---
 
 </div>
-
-## 🚀 Что там есть
-
-| Раздел | Что внутри |
-|--------|------------|
-| **Быстрый старт** | Ссылка-подписка в один клик |
-| **Как подключиться** | 3 шага + клиенты для ПК, Android и iOS |
-| **Возможности** | Что даёт VPN |
-| **Платформы** | Android, iOS, Windows, macOS, Linux |
-| **Telegram** | Кнопка перехода в @Torfelka |
-
-<br>
-
-<div align="center">
-
-### ⭐ Понравилось? Поставь звезду репозиторию!
-
-**Сделано с ❤️ для свободного интернета**
-
-<br>
 
 © 2026 Torfelka VPN
 
