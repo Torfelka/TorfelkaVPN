@@ -8,13 +8,13 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a0a0f'/%3E%3Cpath d='M32 8 L50 15 V31 C50 43 42 52 32 56 C22 52 14 43 14 31 V15 Z' fill='%23555560'/%3E%3Ctext x='32' y='41' font-family='Arial' font-size='26' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 
 html,body{
-  height:100%;
-  overflow:hidden;
+  min-height:100%;
 }
 
 body{
@@ -24,106 +24,226 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:24px;
+  padding:48px 24px;
   position:relative;
   -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 
-/* Мягкое фиолетовое свечение на фоне */
 body::before{
   content:'';
   position:fixed;
   inset:0;
   pointer-events:none;
   background:
-    radial-gradient(600px 400px at 50% 40%, rgba(124,92,255,.14), transparent 70%),
-    radial-gradient(500px 400px at 50% 100%, rgba(124,92,255,.08), transparent 70%);
-  animation:fadeIn 1.6s ease .1s both;
+    radial-gradient(700px 500px at 50% 0%, rgba(124,92,255,.16), transparent 68%),
+    radial-gradient(600px 500px at 50% 110%, rgba(124,92,255,.08), transparent 70%),
+    radial-gradient(500px 400px at 90% 50%, rgba(139,92,246,.06), transparent 70%);
+  animation:fadeIn 1.8s ease .1s both;
 }
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 
 .box{
   position:relative;
   z-index:1;
+  width:100%;
+  max-width:720px;
   text-align:center;
-  max-width:640px;
   animation:rise 1s cubic-bezier(.2,.8,.3,1) both;
 }
 @keyframes rise{
-  from{opacity:0;transform:translateY(24px);}
+  from{opacity:0;transform:translateY(28px);}
   to{opacity:1;transform:translateY(0);}
 }
 
 .icon{
-  width:82px;
-  height:82px;
-  margin:0 auto 30px;
+  width:88px;
+  height:88px;
+  margin:0 auto 32px;
   border-radius:26px;
   display:grid;
   place-items:center;
   background:linear-gradient(135deg,#1a1a24,#0f0f16);
   border:1px solid rgba(255,255,255,.08);
-  color:#6a6a78;
-  box-shadow:0 20px 50px rgba(0,0,0,.55);
-  animation:pulse 4s ease-in-out infinite;
+  box-shadow:0 22px 54px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.04);
+  animation:pulse 4.5s ease-in-out infinite;
+  position:relative;
+}
+.icon::after{
+  content:'';
+  position:absolute;
+  inset:-3px;
+  border-radius:inherit;
+  background:radial-gradient(circle, rgba(124,92,255,.28), transparent 70%);
+  filter:blur(16px);
+  z-index:-1;
+  opacity:.7;
 }
 @keyframes pulse{
   0%,100%{transform:scale(1);}
-  50%{transform:scale(1.04);}
+  50%{transform:scale(1.05);}
 }
 
 .icon svg{
-  width:38px;
-  height:38px;
+  width:42px;
+  height:42px;
   stroke:#8a8a98;
-  stroke-width:2.2;
+  stroke-width:2;
   fill:none;
   stroke-linecap:round;
   stroke-linejoin:round;
 }
 
-h1{
-  font-size:clamp(34px,7vw,60px);
+.tag{
+  display:inline-block;
+  font-size:12px;
   font-weight:800;
-  letter-spacing:-2px;
-  line-height:1.06;
+  letter-spacing:2.2px;
+  text-transform:uppercase;
+  color:#7a7a88;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  padding:8px 18px;
+  border-radius:999px;
+  margin-bottom:26px;
+}
+
+h1{
+  font-size:clamp(36px,7vw,66px);
+  font-weight:800;
+  letter-spacing:-2.4px;
+  line-height:1.05;
   margin-bottom:22px;
-  color:#f4f4f7;
 }
 
-h1 .dim{
-  color:#5a5a68;
-}
+h1 .dim{color:#55555f;}
 
-p.reason{
+.lead{
   font-size:clamp(15px,2vw,18px);
-  font-weight:600;
+  font-weight:500;
   color:#93939f;
-  letter-spacing:.2px;
+  line-height:1.7;
+  max-width:600px;
+  margin:0 auto 44px;
+}
+
+.lead b{color:#c4b5fd;font-weight:700;}
+
+.reasons{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  text-align:left;
+  margin-bottom:44px;
+}
+
+.reason{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  padding:18px 22px;
+  border-radius:16px;
+  background:linear-gradient(165deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+  border:1px solid rgba(255,255,255,.06);
+  transition:border-color .4s cubic-bezier(.4,0,.2,1),
+             transform .4s cubic-bezier(.2,.8,.3,1),
+             background .4s cubic-bezier(.4,0,.2,1);
+  animation:itemIn .7s cubic-bezier(.2,.8,.3,1) both;
+}
+.reason:nth-child(1){animation-delay:.15s;}
+.reason:nth-child(2){animation-delay:.25s;}
+.reason:nth-child(3){animation-delay:.35s;}
+.reason:nth-child(4){animation-delay:.45s;}
+@keyframes itemIn{
+  from{opacity:0;transform:translateY(14px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+.reason:hover{
+  border-color:rgba(124,92,255,.32);
+  transform:translateY(-2px);
+  background:linear-gradient(165deg,rgba(124,92,255,.10),rgba(255,255,255,.015));
+}
+
+.reason-icon{
+  width:42px;
+  height:42px;
+  flex-shrink:0;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  font-size:17px;
+  color:#a78bfa;
+  background:linear-gradient(135deg,rgba(124,92,255,.18),rgba(124,92,255,.04));
+  border:1px solid rgba(124,92,255,.22);
+}
+
+.reason-body h3{
+  font-size:15.5px;
+  font-weight:800;
+  letter-spacing:-.2px;
+  margin-bottom:5px;
+  color:#e6e6ee;
+}
+
+.reason-body p{
+  font-size:13.8px;
+  font-weight:500;
+  color:#8a8a98;
   line-height:1.6;
 }
 
-p.reason b{
+.footer-note{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-size:13px;
+  font-weight:600;
+  color:#6a6a78;
+  padding:12px 22px;
+  border-radius:999px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.055);
+}
+
+.footer-note i{
   color:#a78bfa;
-  font-weight:800;
+  font-size:13px;
 }
 
 .line{
-  width:60px;
+  width:70px;
   height:2px;
-  margin:32px auto 0;
+  margin:44px auto 0;
   border-radius:2px;
   background:linear-gradient(90deg,transparent,#3a3a48,transparent);
-  opacity:.6;
+  opacity:.55;
 }
 
-@media (max-width:480px){
-  .icon{width:70px;height:70px;border-radius:22px;margin-bottom:24px;}
-  .icon svg{width:32px;height:32px;}
-  h1{letter-spacing:-1.4px;}
-  body::before{
-    background:
-      radial-gradient(400px 300px at 50% 40%, rgba(124,92,255,.14), transparent 70%);
+@media (max-width:520px){
+  body{padding:36px 18px;}
+
+  .icon{width:74px;height:74px;border-radius:22px;margin-bottom:26px;}
+  .icon svg{width:34px;height:34px;}
+
+  h1{letter-spacing:-1.6px;margin-bottom:18px;}
+
+  .lead{font-size:14.5px;margin-bottom:34px;}
+
+  .reason{padding:15px 16px;gap:13px;}
+  .reason-icon{width:38px;height:38px;font-size:15px;border-radius:11px;}
+  .reason-body h3{font-size:14.5px;}
+  .reason-body p{font-size:13px;}
+
+  .footer-note{font-size:12px;padding:11px 18px;}
+  .line{margin-top:34px;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-delay:0ms !important;
+    transition-duration:.001ms !important;
   }
 }
 </style>
@@ -131,6 +251,7 @@ p.reason b{
 <body>
 
   <div class="box">
+
     <div class="icon">
       <svg viewBox="0 0 24 24">
         <path d="M12 2 L20 5 V12 C20 17 16 21 12 22 C8 21 4 17 4 12 V5 Z"/>
@@ -138,13 +259,58 @@ p.reason b{
       </svg>
     </div>
 
-    <h1>VPN <span class="dim">закрыт</span></h1>
+    <div class="tag">Проект остановлен</div>
 
-    <p class="reason">
-      Причина — <b>невыгода</b>
+    <h1>Torfelka VPN <span class="dim">закрыт</span></h1>
+
+    <p class="lead">
+      Мы приняли решение <b>полностью остановить проект</b> и больше не поддерживаем подписку,
+      серверы и клиентов. Ниже — честно объясняем, почему.
     </p>
 
+    <div class="reasons">
+
+      <div class="reason">
+        <div class="reason-icon"><i class="fa-solid fa-coins"></i></div>
+        <div class="reason-body">
+          <h3>Это было невыгодно</h3>
+          <p>Проект работал бесплатно и без рекламы. Серверы, домены и трафик стоят денег, а отдачи не было никакой — одни расходы и время.</p>
+        </div>
+      </div>
+
+      <div class="reason">
+        <div class="reason-icon"><i class="fa-solid fa-server"></i></div>
+        <div class="reason-body">
+          <h3>Серверы больше не оплачиваются</h3>
+          <p>Все 24 сервера были отключены. Ссылка-подписка больше не работает — импортировать в клиент нечего.</p>
+        </div>
+      </div>
+
+      <div class="reason">
+        <div class="reason-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="reason-body">
+          <h3>Нет поддержки и обновлений</h3>
+          <p>Клиенты обновляться не будут, баги чинить некому, а новые протоколы блокировок мы отслеживать не успеваем.</p>
+        </div>
+      </div>
+
+      <div class="reason">
+        <div class="reason-icon"><i class="fa-solid fa-clock"></i></div>
+        <div class="reason-body">
+          <h3>Не хватило времени и сил</h3>
+          <p>Проект держался на энтузиазме пары человек. Совмещать это с работой и жизнью стало невозможно — пришлось закрыть.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-note">
+      <i class="fa-solid fa-circle-info"></i>
+      Спасибо всем, кто пользовался. Дальше — без нас.
+    </div>
+
     <div class="line"></div>
+
   </div>
 
 </body>
