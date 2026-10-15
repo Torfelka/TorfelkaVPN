@@ -6,7 +6,7 @@ Subscription-Userinfo: upload=0; download=0; total=536870912000; expire=17951328
 #subscription-ping-onopen-enabled: true
 #profile-title: TorfelkaVPN
 #subscription-userinfo: upload=0; download=0; total=107374182400; expire=0
-#announce: Torfelka VPN ВОЗРАЩЯЕТСЯ!
+#announce: Torfelka VPN КОНЕЦ
 #profile-web-page-url: https://torfelka.github.io/TorfelkaVPN/
 #subscription-pin: true
 
